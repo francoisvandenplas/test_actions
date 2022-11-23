@@ -28,5 +28,5 @@ jobs:
     #if there is a change to any files or new files added, the code will be committed.
     - uses: EndBug/add-and-commit@v8
       with:
-          author_name: Namya #replace it with your name
+          author_name: fva #replace it with your name
           message : Temperature written
