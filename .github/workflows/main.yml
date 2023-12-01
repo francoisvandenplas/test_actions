@@ -11,15 +11,15 @@ jobs:
     - uses: actions/checkout@v2
     - name: multi lines payload
       run: |
-        echo 'PAYLOAD<<EOF'
-        curl -s https://catfact.ninja/fact | jq -r '.fact' 
-        curl -s https://catfact.ninja/fact | jq -r '.fact' 
-        echo EOF
-        >> "$GITHUB_ENV"
+        echo 'REPORT<<EOF' >> $GITHUB_ENV
+         echo "\`\`\`console" >> $GITHUB_ENV
+         curl -s https://catfact.ninja/fact | jq -r '.fact' >> $GITHUB_ENV
+         echo "\`\`\`" >> $GITHUB_ENV
+         echo 'EOF' >> $GITHUB_ENV
     - name: log
       run: |
-        echo $PAYLOAD
+        echo $REPORT
         echo ------
-        echo ${{ env.PAYLOAD }}
+        echo ${{ env.REPORT }}
         echo ------
-        echo $${{ toJSON(env.PAYLOAD) }}
+        echo $${{ toJSON(env.REPORT) }}
