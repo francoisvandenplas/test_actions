@@ -9,18 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:        
     - uses: actions/checkout@v2
-    - name: multi lines payload
-      run: |
-        chmod +x config-diff.sh
-        echo 'REPORT<<EOF' >> $GITHUB_ENV
-         echo "\`\`\`" >> $GITHUB_ENV
-          ./config-diff.sh RELEASE_UAT >> $GITHUB_ENV
-         echo "\`\`\`" >> $GITHUB_ENV
-         echo 'EOF' >> $GITHUB_ENV
     - name: log
-      run: |
-        echo $REPORT
-        echo ------
-        echo ${{ env.REPORT }}
-        echo ------
-        echo $${{ toJSON(env.REPORT) }}
+      run: ls
+    - name: change directory
+      working-directory: folder1
+      run: ls && cat file.txt
+    - name: cd
+      run: cd folder2
