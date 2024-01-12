@@ -15,7 +15,7 @@ jobs:
         shell: bash
         run: |-
           git show --name-only --oneline
-          array=( $(git show --name-only --oneline | grep folder |cut -d/ -f1 | uniq) )
+          array=( $(seq 4) )
           echo $array
           echo "array=$array" >> "$GITHUB_OUTPUT"
 
