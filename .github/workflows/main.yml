@@ -10,6 +10,7 @@ jobs:
     outputs:
       result: ${{ steps.build_array.outputs.array }}
     steps:
+      - uses: actions/checkout@v2
       - id: build_array
         run: |-
           array=( $(git show --name-only --oneline | grep folder |cut -d/ -f1 | uniq) )
