@@ -8,7 +8,7 @@ jobs:
   build_array_job:
     runs-on: ubuntu-latest
     outputs:
-      result: ${{ steps.build_array.outputs.array }}
+      result: ${{ toJSON(steps.build_array.outputs.array) }}
     steps:
       - uses: actions/checkout@v2
       - id: build_array
@@ -23,7 +23,7 @@ jobs:
     needs: build_array_job
     steps:
       - env:
-          RESULT: ${{needs.build_array_job.outputs.result}}
+          RESULT: ${{ fromJSON(needs.build_array_job.outputs.result) }}
         run: echo "$RESULT"
 
 
