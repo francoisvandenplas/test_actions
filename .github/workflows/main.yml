@@ -18,13 +18,14 @@ jobs:
           ARRAY=$(./getarray.sh)
           echo "result=$(jq -cn --argjson paths "$ARRAY" '{folder: $paths}')" >> $GITHUB_OUTPUT          
 
-  matrix_job:
-    runs-on: ubuntu-latest
+
+  run-matrix:
     needs: build_array_job
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.build_array_job.outputs.matrix) }}
     steps:
-      - env:
-          RESULT: ${{ fromJSON(needs.build_array_job.outputs.matrix) }}
-        run: echo "$RESULT"
+      - run: echo ${{matrix.folder}}
 
 
 
