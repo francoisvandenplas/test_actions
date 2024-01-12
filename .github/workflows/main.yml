@@ -19,9 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |-
-         echo ${{ needs.first.outputs.ARRAY }}
+         echo "${{ needs.first.outputs.ARRAY }}"
          echo '-------'
-          echo ${{ needs.first.outputs.TEST }}
+          echo "${{ needs.first.outputs.TEST }}"
 
 
 
