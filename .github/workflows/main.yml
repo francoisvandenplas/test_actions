@@ -8,23 +8,22 @@ jobs:
   build_array_job:
     runs-on: ubuntu-latest
     outputs:
-      result: ${{ toJSON(steps.build_array.outputs.array) }}
+      matrix: ${{ steps.build_array.outputs.result }}
     steps:
       - uses: actions/checkout@v2
       - id: build_array
-        shell:
+        shell: bash
         run: |-
-          git show --name-only --oneline
-          array=( $(git show --name-only --oneline | grep folder |cut -d/ -f1 | uniq) )
-          echo $array
-          echo "array=$array" >> "$GITHUB_OUTPUT"
+          chmod +X get array.sh
+          ARRAY=$(./getarray.sh)
+          echo "result=$(jq -cn --argjson paths "$ARRAY" '{folder: $paths}')" >> $GITHUB_OUTPUT          
 
   matrix_job:
     runs-on: ubuntu-latest
     needs: build_array_job
     steps:
       - env:
-          RESULT: ${{ fromJSON(needs.build_array_job.outputs.result) }}
+          RESULT: ${{ fromJSON(needs.build_array_job.outputs.matrix) }}
         run: echo "$RESULT"
 
 
