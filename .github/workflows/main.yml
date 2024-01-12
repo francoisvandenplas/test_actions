@@ -13,6 +13,7 @@ jobs:
       - uses: actions/checkout@v2
       - id: build_array
         run: |-
+          git show --name-only --oneline
           array=( $(git show --name-only --oneline | grep folder |cut -d/ -f1 | uniq) )
           echo $array
           echo "array=$array" >> "$GITHUB_OUTPUT"
