@@ -10,7 +10,7 @@ jobs:
     steps:        
     - uses: actions/checkout@v2
     - name: build_array
-      run: -|
+      run: |-
         array=( $(git show --name-only --oneline | grep folder |cut -d/ -f1 | uniq) )
         echo "ARRAY=$array" >> "$GITHUB_OUTPUT"
         echo "TEST=1233444" >> "$GITHUB_OUTPUT"
@@ -18,7 +18,7 @@ jobs:
   second:
     runs-on: ubuntu-latest
     steps:
-      - run: -|
+      - run: |-
          echo ${{ needs.first.outputs.ARRAY }}
          echo '-------'
           echo ${{ needs.first.outputs.TEST }}
