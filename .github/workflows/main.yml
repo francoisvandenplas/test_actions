@@ -6,13 +6,16 @@ on:
   
 jobs:
   first:
+    outputs:
+      output_test: ${{ steps.build_array.outputs.TEST }}
     runs-on: ubuntu-latest
-    steps:        
+    steps:
     - uses: actions/checkout@v2
     - name: build_array
+      id: build_array
       run: |-
         array=( $(git show --name-only --oneline | grep folder |cut -d/ -f1 | uniq) )
-        echo "ARRAY=$array" >> "$GITHUB_OUTPUT"
+        echo $array
         echo "TEST=1233444" >> "$GITHUB_OUTPUT"
 
   second:
@@ -21,7 +24,7 @@ jobs:
       - run: |-
          echo "${{ needs.first.outputs.ARRAY }}"
          echo '-------'
-          echo "${{ needs.first.outputs.TEST }}"
+          echo "${{ needs.first.outputs.output_test }}"
 
 
 
