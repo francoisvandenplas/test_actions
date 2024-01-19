@@ -14,9 +14,9 @@ jobs:
       - id: build_array
         shell: bash
         env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
+          SHA: ${{ env.GITHUB_SHA }}
         run: |-
-          echo "$GITHUB_CONTEXT"
+          echo "$SHA"
 
 
 #  run-matrix:
