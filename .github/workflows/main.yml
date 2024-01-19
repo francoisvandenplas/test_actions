@@ -14,8 +14,11 @@ jobs:
       - id: build_array
         shell: bash
         env:
-          SHA: ${{ github.GITHUB_SHA }}
+          REF: ${{ github.ref }}
+          SHA: ${{ github.sha }}
         run: |-
+          echo "$REF"
+          echo ------
           echo "$SHA"
 
 
