@@ -14,19 +14,16 @@ jobs:
       - id: build_array
         shell: bash
         run: |-
-          mapfile
-          chmod +x getarray.sh
-          ARRAY=$(./getarray.sh)
-          echo "result=$(jq -cn --argjson paths "$ARRAY" '{folder: $paths}')" >> $GITHUB_OUTPUT          
+          echo ${{ toJson(github) }}
 
 
-  run-matrix:
-    needs: build_array_job
-    runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{ fromJson(needs.build_array_job.outputs.matrix) }}
-    steps:
-      - run: echo ${{matrix.folder}}
+#  run-matrix:
+#    needs: build_array_job
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix: ${{ fromJson(needs.build_array_job.outputs.matrix) }}
+#    steps:
+#      - run: echo ${{matrix.folder}}
 
 
 
