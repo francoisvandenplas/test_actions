@@ -13,8 +13,10 @@ jobs:
       - uses: actions/checkout@v2
       - id: build_array
         shell: bash
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |-
-          echo ${{ toJson(github) }}
+          echo "$GITHUB_CONTEXT"
 
 
 #  run-matrix:
